@@ -8,13 +8,15 @@ import java.util.List;
 public class Day1Part2 {
 
     public static void main(String[] args) throws IOException {
+        long start = System.nanoTime();
         Path path = Paths.get("day1-input.txt");
         List<String> input = Files.readAllLines(path);
         List<Integer> previousFrequencies = new ArrayList<>();
 
         int frequency = 0;
         int count = -1;
-        while (true) {
+        boolean shouldFinish = false;
+        while (!shouldFinish) {
             if (count++ == input.size() - 1) {
                 count = 0;
             }
@@ -30,11 +32,14 @@ public class Day1Part2 {
                 return;
             }
             if (previousFrequencies.contains(frequency)) {
-                System.out.println("RESULT = " + frequency);
-                return;
+                shouldFinish = true;
             } else {
                 previousFrequencies.add(frequency);
             }
         }
+        System.out.println("RESULT = " + frequency);
+        long timeInNanos = System.nanoTime() - start;
+        System.out.println("Time in nanos: " + timeInNanos);
+        System.out.println("Time in seconds: " + (timeInNanos / Math.pow(10, 9)));
     }
 }
