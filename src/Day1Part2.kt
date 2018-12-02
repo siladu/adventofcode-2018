@@ -2,7 +2,11 @@ import java.util.HashMap
 
 object Day1Part2 {
 
-    private fun run(input: List<String>) {
+    private fun partOne(input: List<String>) {
+        println("Part One = ${ input.sumBy { it.toInt() } }")
+    }
+
+    private fun partTwo(input: List<String>) {
 
         val previousFrequencies = HashMap<Int, Boolean>()
 
@@ -28,13 +32,14 @@ object Day1Part2 {
                 shouldFinish = true
             }
         }
-        println("RESULT = $frequency")
+        println("Part Two = $frequency")
     }
 
     @JvmStatic
     fun main(args: Array<String>) {
         Runner.timedRun("day1-input.txt") {
-            run(it)
+            partOne(it)
+            partTwo(it)
         }
     }
 }
