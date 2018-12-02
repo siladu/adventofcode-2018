@@ -1,6 +1,6 @@
 import java.util.HashMap
 
-object Day1Part2 {
+object Day1 {
 
     private fun partOne(input: List<String>) {
         println("Part One = ${ input.sumBy { it.toInt() } }")
