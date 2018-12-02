@@ -1,6 +1,3 @@
-import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Paths
 import java.util.HashMap
 
 object Day1Part2 {
@@ -34,18 +31,10 @@ object Day1Part2 {
         println("RESULT = $frequency")
     }
 
-    @Throws(IOException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        val start = System.nanoTime()
-        val path = Paths.get("day1-input.txt")
-        val input = Files.readAllLines(path)
-
-        run(input)
-
-        val timeInNanos = System.nanoTime() - start
-        println("Time in nanos: $timeInNanos")
-        println("Time in millis: " + timeInNanos / Math.pow(10.0, 6.0))
-        println("Time in seconds: " + timeInNanos / Math.pow(10.0, 9.0))
+        Runner.timedRun("day1-input.txt") {
+            run(it)
+        }
     }
 }
