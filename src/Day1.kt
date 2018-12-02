@@ -20,12 +20,7 @@ object Day1 {
             }
 
             val line = input[count]
-            val op = line[0]
-            val value = Integer.parseInt(line.substring(1))
-            when (op) {
-                '+' -> frequency += value
-                '-' -> frequency -= value
-            }
+            frequency += line.toInt()
 
             val result = previousFrequencies.put(frequency, true)
             if (result != null) {
