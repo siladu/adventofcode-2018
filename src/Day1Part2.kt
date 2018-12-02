@@ -5,10 +5,8 @@ import java.util.HashMap
 
 object Day1Part2 {
 
-    private fun run() {
-        val start = System.nanoTime()
-        val path = Paths.get("day1-input.txt")
-        val input = Files.readAllLines(path)
+    private fun run(input: List<String>) {
+
         val previousFrequencies = HashMap<Int, Boolean>()
 
         var frequency = 0
@@ -34,15 +32,20 @@ object Day1Part2 {
             }
         }
         println("RESULT = $frequency")
-        val timeInNanos = System.nanoTime() - start
-        println("Time in nanos: $timeInNanos")
-        println("Time in millis: " + timeInNanos / Math.pow(10.0, 6.0))
-        println("Time in seconds: " + timeInNanos / Math.pow(10.0, 9.0))
     }
 
     @Throws(IOException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        run()
+        val start = System.nanoTime()
+        val path = Paths.get("day1-input.txt")
+        val input = Files.readAllLines(path)
+
+        run(input)
+
+        val timeInNanos = System.nanoTime() - start
+        println("Time in nanos: $timeInNanos")
+        println("Time in millis: " + timeInNanos / Math.pow(10.0, 6.0))
+        println("Time in seconds: " + timeInNanos / Math.pow(10.0, 9.0))
     }
 }
