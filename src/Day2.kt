@@ -4,7 +4,7 @@ import java.nio.file.Paths
 
 object Day2 {
 
-    private fun run(input: List<String>) {
+    private fun runPartOne(input: List<String>) {
 
         fun matchesFor(word: String): Set<Int> {
             return word
@@ -20,6 +20,21 @@ object Day2 {
         println(theTwos.size * theThrees.size)
     }
 
+    data class Comparision(val word: String, val other: String, val commonLetters: List<Char>, val common: Int, val diff: Int)
+
+    private fun runPartTwo(input: List<String>) {
+
+        fun letterComparison(word: String, other: String): Comparision {
+            val common = word.zip(other).filter { it.first == it.second }.map { it.first }
+            return Comparision(word, other, common, common.size, word.length - common.size)
+        }
+
+        val cartesianProduct: List<Comparision> = input.flatMap { word -> input.map { letterComparison(word, it) } }
+        val onlyOneLetterDifferent = cartesianProduct.filter { it.diff == 1 }
+        val result = onlyOneLetterDifferent[0].commonLetters.joinToString("")
+        println(result)
+    }
+
     @Throws(IOException::class)
     @JvmStatic
     fun main(args: Array<String>) {
@@ -27,7 +42,8 @@ object Day2 {
         val path = Paths.get("day2-input.txt")
         val input = Files.readAllLines(path)
 
-        run(input)
+        runPartOne(input)
+        runPartTwo(input)
 
         val timeInNanos = System.nanoTime() - start
         println("Time in nanos: $timeInNanos")
