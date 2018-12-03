@@ -16,8 +16,6 @@ object Day3 {
     }
 
     private fun pointsForClaim(claim: Claim): List<Point> {
-        val points = mutableListOf<Point>()
-
         for (cOffset in (0 until claim.width)) {
             for (rOffset in (0 until claim.height)) {
                 val point = Pair(claim.left + rOffset, claim.top + cOffset)
@@ -26,8 +24,6 @@ object Day3 {
                 }
             }
         }
-
-        return points
     }
 
     data class Claim(val id: Int, val left: Int, val top: Int, val width: Int, val height: Int)
