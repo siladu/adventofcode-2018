@@ -90,6 +90,8 @@ object Day3 {
             visualiseTestInput()
             println()
 
+            pointMap.clear()
+            uniqueCollisions.clear()
             print("\ninput overlapping cells = ")
             partOne(input)
         }
