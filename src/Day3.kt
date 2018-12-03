@@ -10,10 +10,7 @@ object Day3 {
 
         input.forEach{ pointsForClaim(parseClaim(it)) }
 
-        //112538 is too low
-        //116521
-        //147386 is too high
-        println(uniqueCollisions.size)
+        println("${uniqueCollisions.size}")
     }
 
     private fun pointsForClaim(claim: Claim) {
@@ -72,27 +69,27 @@ object Day3 {
         )
 
         Runner.timedRun("day3-input.txt") { input ->
-            print("testInput1 overlapping cells = ")
-            partOne(testInput1)
-            visualiseTestInput()
+//            print("testInput1 overlapping cells = ")
+//            partOne(testInput1)
+//            visualiseTestInput()
+//
+//            pointMap.clear()
+//            uniqueCollisions.clear()
+//            print("\ntestInput2 overlapping cells = ")
+//            partOne(testInput2)
+//            visualiseTestInput()
+//            println()
+//
+//            pointMap.clear()
+//            uniqueCollisions.clear()
+//            print("\ntestInput3 overlapping cells = ")
+//            partOne(testInput3)
+//            visualiseTestInput()
+//            println()
 
             pointMap.clear()
             uniqueCollisions.clear()
-            print("\ntestInput2 overlapping cells = ")
-            partOne(testInput2)
-            visualiseTestInput()
-            println()
-
-            pointMap.clear()
-            uniqueCollisions.clear()
-            print("\ntestInput3 overlapping cells = ")
-            partOne(testInput3)
-            visualiseTestInput()
-            println()
-
-            pointMap.clear()
-            uniqueCollisions.clear()
-            print("\ninput overlapping cells = ")
+            print("\nPart One: overlapping cells = ")
             partOne(input)
         }
     }
