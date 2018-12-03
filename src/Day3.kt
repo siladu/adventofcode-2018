@@ -15,7 +15,7 @@ object Day3 {
         println(uniqueCollisions.size)
     }
 
-    private fun pointsForClaim(claim: Claim): List<Point> {
+    private fun pointsForClaim(claim: Claim) {
         for (cOffset in (0 until claim.width)) {
             for (rOffset in (0 until claim.height)) {
                 val point = Pair(claim.left + rOffset, claim.top + cOffset)
