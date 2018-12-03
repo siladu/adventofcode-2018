@@ -11,6 +11,7 @@ object Day3 {
         input.forEach{ pointsForClaim(parseClaim(it)) }
 
         //112538 is too low
+        //116521
         //147386 is too high
         println(uniqueCollisions.size)
     }
@@ -43,9 +44,9 @@ object Day3 {
     }
 
     private fun visualiseTestInput() {
-        for (cOffset in (0 until 10)) {
-            for (rOffset in (0 until 10)) {
-                val point = Pair(rOffset, cOffset)
+        for (x in (0 until 10)) {
+            for (y in (0 until 10)) {
+                val point = Pair(x, y)
                 print(uniqueCollisions.getOrDefault(point, pointMap.getOrDefault(point, ".")))
             }
             println()
@@ -55,12 +56,14 @@ object Day3 {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        val testInput = listOf(
+        val testInput1 = listOf(
+            "#1 @ 3,2: 5x4"
+        )
+        val testInput3 = listOf(
             "#1 @ 1,3: 4x4",
             "#2 @ 3,1: 4x4",
             "#3 @ 5,5: 2x2"
         )
-
         val testInput2 = listOf(
             "#1 @ 1,1: 5x5",
             "#2 @ 2,2: 5x5",
@@ -70,13 +73,20 @@ object Day3 {
 
         Runner.timedRun("day3-input.txt") { input ->
             print("testInput1 overlapping cells = ")
-            partOne(testInput)
+            partOne(testInput1)
             visualiseTestInput()
 
             pointMap.clear()
             uniqueCollisions.clear()
             print("\ntestInput2 overlapping cells = ")
             partOne(testInput2)
+            visualiseTestInput()
+            println()
+
+            pointMap.clear()
+            uniqueCollisions.clear()
+            print("\ntestInput3 overlapping cells = ")
+            partOne(testInput3)
             visualiseTestInput()
             println()
 
