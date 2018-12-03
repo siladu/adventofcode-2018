@@ -58,7 +58,7 @@ object Day3 {
         val testInput = listOf(
             "#1 @ 1,3: 4x4",
             "#2 @ 3,1: 4x4",
-            "#3 @ 3,3: 2x2"
+            "#3 @ 5,5: 2x2"
         )
 
         val testInput2 = listOf(
