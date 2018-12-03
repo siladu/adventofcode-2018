@@ -6,20 +6,31 @@ object Day3 {
     private val pointMap = mutableMapOf<Point, Int>()
     private val uniqueCollisions = mutableMapOf<Point, String>()
 
-    private fun partOne(input: List<String>) {
+    private fun run(input: List<String>) {
 
-        input.forEach{ pointsForClaim(parseClaim(it)) }
+        val claimsWithPoints: List<Pair<Claim, List<Point>>> = input.map { pointsForClaim(parseClaim(it)) }
+        claimsWithPoints.forEach { (claim, points) -> populateMapsForClaimPoints(claim, points) }
 
-        println("${uniqueCollisions.size}")
+        println("part one: num overlapping cells = ${uniqueCollisions.size}")
+
+        println("part two: non-overlapping claimId: " + claimsWithPoints.filter { (claim, points) -> !points.any { uniqueCollisions.containsKey(it) } }.map { it.first.id })
     }
 
-    private fun pointsForClaim(claim: Claim) {
+    private fun pointsForClaim(claim: Claim): Pair<Claim, List<Point>> {
+        val points = arrayListOf<Point>()
         for (heightOffset in (0 until claim.height)) {
             for (widthOffset in (0 until claim.width)) {
                 val point = Pair(claim.left + widthOffset, claim.top + heightOffset)
-                if (pointMap.put(point, claim.id) != null) {
-                    uniqueCollisions.put(point, "X")
-                }
+                points.add(point)
+            }
+        }
+        return Pair(claim, points)
+    }
+
+    private fun populateMapsForClaimPoints(claim: Claim, points: List<Point>) {
+        points.forEach { point ->
+            if (pointMap.put(point, claim.id) != null) {
+                uniqueCollisions.put(point, "X")
             }
         }
     }
@@ -56,12 +67,12 @@ object Day3 {
         val testInput1 = listOf(
             "#1 @ 3,2: 5x4"
         )
-        val testInput3 = listOf(
+        val testInput2 = listOf(
             "#1 @ 1,3: 4x4",
             "#2 @ 3,1: 4x4",
             "#3 @ 5,5: 2x2"
         )
-        val testInput2 = listOf(
+        val testInput3 = listOf(
             "#1 @ 1,1: 5x5",
             "#2 @ 2,2: 5x5",
             "#3 @ 3,3: 5x5",
@@ -69,28 +80,30 @@ object Day3 {
         )
 
         Runner.timedRun("day3-input.txt") { input ->
-//            print("testInput1 overlapping cells = ")
-//            partOne(testInput1)
+//            println("testInput1:")
+//            run(testInput1)
 //            visualiseTestInput()
 //
-//            pointMap.clear()
-//            uniqueCollisions.clear()
-//            print("\ntestInput2 overlapping cells = ")
-//            partOne(testInput2)
+//            resetState()
+//            println("\ntestInput2:")
+//            run(testInput2)
 //            visualiseTestInput()
+//
 //            println()
 //
-//            pointMap.clear()
-//            uniqueCollisions.clear()
-//            print("\ntestInput3 overlapping cells = ")
-//            partOne(testInput3)
+//            resetState()
+//            println("\ntestInput3:")
+//            run(testInput3)
 //            visualiseTestInput()
-//            println()
-
-            pointMap.clear()
-            uniqueCollisions.clear()
-            print("\nPart One: overlapping cells = ")
-            partOne(input)
+//
+//            resetState()
+//            println("\ninput:")
+            run(input)
         }
+    }
+
+    private fun resetState() {
+        pointMap.clear()
+        uniqueCollisions.clear()
     }
 }
