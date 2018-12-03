@@ -17,9 +17,9 @@ object Day3 {
     }
 
     private fun pointsForClaim(claim: Claim) {
-        for (cOffset in (0 until claim.width)) {
-            for (rOffset in (0 until claim.height)) {
-                val point = Pair(claim.left + rOffset, claim.top + cOffset)
+        for (heightOffset in (0 until claim.height)) {
+            for (widthOffset in (0 until claim.width)) {
+                val point = Pair(claim.left + widthOffset, claim.top + heightOffset)
                 if (pointMap.put(point, claim.id) != null) {
                     uniqueCollisions.put(point, "X")
                 }
@@ -44,8 +44,8 @@ object Day3 {
     }
 
     private fun visualiseTestInput() {
-        for (x in (0 until 10)) {
-            for (y in (0 until 10)) {
+        for (y in (0 until 10)) {
+            for (x in (0 until 10)) {
                 val point = Pair(x, y)
                 print(uniqueCollisions.getOrDefault(point, pointMap.getOrDefault(point, ".")))
             }
