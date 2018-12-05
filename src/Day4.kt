@@ -6,6 +6,10 @@ object Day4 {
     private val guardSleeps = mutableMapOf<Int, List<Int>>()
     private val guardMinutes = mutableMapOf<Int, List<Int>>()
 
+    fun runImproved(input: List<String>) {
+        //https//github.com/janbina/advent-of-code-2018/blob/master/src/Day04.kt
+    }
+
     private fun run(input: List<String>) {
 
         var currentGuardId = 0
