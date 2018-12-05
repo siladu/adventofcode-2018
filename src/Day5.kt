@@ -1,3 +1,5 @@
+import kotlin.streams.toList
+
 object Day5 {
 
     private fun run(input: String): Int {
@@ -18,15 +20,12 @@ object Day5 {
     }
 
     private fun partTwo(input: String) {
-        val distinctTypes = input.toLowerCase().groupBy { it }.keys.sorted()
 
-        val polymerLengths: List<Int> = distinctTypes.map {
+        val min = ('a'..'z').toList().parallelStream().map { type ->
+            run(input.filterNot { it.toLowerCase() == type })
+        }.toList().min()
 
-            val partiallyReplaced = input.replace(it.toString(), "")
-            val newInput = partiallyReplaced.replace(it.toUpperCase().toString(), "")
-            run(newInput)
-        }
-        println("part two = " + polymerLengths.sorted().first())
+        println("part two = $min")
     }
 
     private fun togglePolarity(unit: Char): Char = if (unit.isLowerCase()) unit.toUpperCase() else unit.toLowerCase()
