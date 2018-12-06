@@ -1,5 +1,3 @@
-import java.util.HashMap
-
 object Day1 {
 
     private fun partOne(input: List<String>) {

@@ -1,6 +1,3 @@
-
-typealias Point = Pair<Int, Int>
-
 object Day3 {
 
     private val pointMap = mutableMapOf<Point, Int>()
