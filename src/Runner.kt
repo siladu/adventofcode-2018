@@ -2,8 +2,9 @@ import java.io.File
 
 object Runner {
 
-    fun timedRun(inputFile: String, run: (List<String>) -> Unit) {
+    fun timedRun(day: Int, run: (List<String>) -> Unit) {
         val start = System.nanoTime()
+        val inputFile = "resources/day$day-input.txt"
         val input = File(inputFile).readLines()
 
         run(input)

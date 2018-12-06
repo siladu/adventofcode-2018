@@ -79,7 +79,7 @@ object Day3 {
             "#4 @ 4,4: 5x5"
         )
 
-        Runner.timedRun("day3-input.txt") { input ->
+        Runner.timedRun(3) { input ->
 //            println("testInput1:")
 //            run(testInput1)
 //            visualiseTestInput()

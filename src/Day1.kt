@@ -32,7 +32,7 @@ object Day1 {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        Runner.timedRun("day1-input.txt") {
+        Runner.timedRun(1) {
             partOne(it)
             partTwo(it)
         }

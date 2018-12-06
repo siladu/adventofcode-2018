@@ -97,7 +97,7 @@ object Day4 {
             "[1518-11-05 00:55] wakes up"
         )
 
-        Runner.timedRun("day4-input.txt.sorted") { input ->
+        Runner.timedRun(4) { input ->
             run(input)
         }
     }

@@ -35,7 +35,7 @@ object Day5 {
 
         val testInput = "dabAcCaCBAcCcaDA" // -> "dabCBAcaDA" / 4
 
-        Runner.timedRun("day5-input.txt") { input ->
+        Runner.timedRun(5) { input ->
             println("part one = " + run(input[0]))
             partTwo(input[0])
         }

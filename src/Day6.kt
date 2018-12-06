@@ -83,7 +83,7 @@ object Day6 {
             "8, 9"
         )
 
-        Runner.timedRun("day6-input.txt") { input ->
+        Runner.timedRun(6) { input ->
             println("TEST INPUT")
             run(testInput, 10, 32, true)
             println()
