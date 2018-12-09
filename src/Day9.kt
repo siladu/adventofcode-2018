@@ -7,24 +7,18 @@ object Day9 {
         val numPlayers = split[0].toInt()
         val lastMarbleValue = split[6].toInt()
 
-        var currentPlayer = 0
         val marbles: LinkedList<Int> = LinkedList()
         marbles.add(0)
         var iterator = marbles.listIterator()
 
+        var currentPlayer = 0
         var playerScores = (1..numPlayers).associate { (it to 0L) }.toMutableMap()
         println("$numPlayers players; last marble is worth $lastMarbleValue points")
-
-        val addTimings = mutableListOf<Long>()
-        var firstAddAverage = 0.0
-        val removeTimings = mutableListOf<Long>()
-        var firstRemoveAverage = 0.0
 
         for (marbleValue in (1..lastMarbleValue)) {
 
             if (marbleValue % 23 == 0) {
 
-                val start = System.nanoTime()
                 for (i in (0..7)) {
                     if (!iterator.hasPrevious()) iterator = marbles.listIterator(marbles.size)
                     iterator.previous()
@@ -33,7 +27,6 @@ object Day9 {
                 iterator.previous()
                 iterator.remove()
                 iterator.next()
-                removeTimings += System.nanoTime() - start
 
                 val newScore = marbleValue + removedMarble
                 val currentScore = playerScores[currentPlayer + 1] ?: 0
@@ -41,30 +34,14 @@ object Day9 {
 
             } else {
 
-                val start = System.nanoTime()
                 if (!iterator.hasNext()) iterator = marbles.listIterator(0)
                 iterator.next()
                 iterator.add(marbleValue)
-                addTimings += System.nanoTime() - start
-            }
-
-            if (marbleValue % 10000 == 0) {
-                val addAvg = addTimings.average()
-                val remAvg = removeTimings.average()
-                if (marbleValue == 10000) {
-                    firstAddAverage = addAvg
-                    firstRemoveAverage = remAvg
-                }
-                println("add : $addAvg ${(addAvg / firstAddAverage).toInt()}X slower - at marble value $marbleValue")
-                println("rem : $remAvg ${(remAvg / firstRemoveAverage).toInt()}X slower - at marble value $marbleValue")
             }
 
             currentPlayer = (currentPlayer + 1) % numPlayers
         }
-        val finalAddAvg = addTimings.average()
-        val finalRemAvg = removeTimings.average()
-        println("final add : $finalAddAvg ${(finalAddAvg / firstAddAverage).toInt()}X slower")
-        println("final rem : $finalRemAvg ${(finalRemAvg / firstRemoveAverage).toInt()}X slower")
+
         println(playerScores.maxBy { it.value })
     }
 
