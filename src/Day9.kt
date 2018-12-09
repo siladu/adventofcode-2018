@@ -24,7 +24,6 @@ object Day9 {
                     iterator.previous()
                 }
                 val removedMarble = iterator.next()
-                iterator.previous()
                 iterator.remove()
                 iterator.next()
 
