@@ -1,3 +1,5 @@
+import java.util.*
+
 object Day9 {
 
     private fun run(input: String) {
@@ -7,30 +9,59 @@ object Day9 {
 
         var currentMarbleIdx = 0
         var currentPlayer = 0
-        val marbles = mutableListOf(0)
+        val marbles = mutableListOf<Int>()
+        marbles.add(0)
         var playerScores = (1..numPlayers).associate { (it to 0) }.toMutableMap()
         println("$numPlayers players; last marble is worth $lastMarbleValue points")
         println("[-] ${printableMarbles(marbles, currentMarbleIdx).joinToString()}")
+
+        val addTimings = mutableListOf<Long>()
+        var firstAddAverage = 0.0
+        val removeTimings = mutableListOf<Long>()
+        var firstRemoveAverage = 0.0
 
         for (marbleValue in (1..lastMarbleValue)) {
 
             if (marbleValue % 23 == 0) {
                 val toRemove = Math.floorMod((currentMarbleIdx - 7), marbles.size)
                 currentMarbleIdx = toRemove
+
+                val start = System.nanoTime()
                 val removedMarble = marbles.removeAt(toRemove)
+                removeTimings += System.nanoTime() - start
+
                 val newScore = marbleValue + removedMarble
                 val currentScore = playerScores[currentPlayer + 1] ?: 0
                 playerScores[currentPlayer + 1] = currentScore + newScore
             } else {
                 val nextIndex = getNextIndex(currentMarbleIdx, marbles)
+
+                val start = System.nanoTime()
                 marbles.add(nextIndex, marbleValue)
+                addTimings += System.nanoTime() - start
+
                 currentMarbleIdx = nextIndex
+            }
+
+            if (marbleValue % 10000 == 0) {
+                val addAvg = addTimings.average()
+                val remAvg = removeTimings.average()
+                if (marbleValue == 10000) {
+                    firstAddAverage = addAvg
+                    firstRemoveAverage = remAvg
+                }
+                println("add : $addAvg ${(addAvg / firstAddAverage).toInt()}X slower")
+                println("rem : $remAvg ${(remAvg / firstRemoveAverage).toInt()}X slower")
             }
 
 //            println("[${currentPlayer + 1}] ${printableMarbles(marbles, currentMarbleIdx).joinToString()}")
 
             currentPlayer = (currentPlayer + 1) % numPlayers
         }
+        val finalAddAvg = addTimings.average()
+        val finalRemAvg = removeTimings.average()
+        println("final add : $finalAddAvg ${(finalAddAvg / firstAddAverage).toInt()}X slower")
+        println("final rem : $finalRemAvg ${(finalRemAvg / firstRemoveAverage).toInt()}X slower")
         println(playerScores.maxBy { it.value })
     }
 
@@ -52,6 +83,8 @@ object Day9 {
         val testInput4 = "21 players; last marble is worth 6111 points"//: high score is 54718"
         val testInput5 = "30 players; last marble is worth 5807 points"//: high score is 37305"
         val input = "478 players; last marble is worth 71240 points" // 375465
+        val input2 = "478 players; last marble is worth 7124000 points"
+        val input3 = "478 players; last marble is worth 712400 points"
 
         Runner.timedRun(8) {
 //            run(testInput)
@@ -61,7 +94,8 @@ object Day9 {
 //            run(testInput4)
 //            run(testInput5)
 //            run(input)
-            run(input)
+            run(input3)
+//            run(input2)
         }
     }
 }
