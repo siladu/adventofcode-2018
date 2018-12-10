@@ -52,40 +52,7 @@ object Day7 {
         println("part one = ${visited.joinToString(separator = "")}")
 
         println("*******")
-//        bfs(startNode, graph, dependencies)
     }
-
-    fun bfs(root: String, graph: Map<String, List<String>>, deps: Map<String, List<String>>) {
-        var visited = listOf<String>()
-        var currentAdjacents: List<String> = listOf()
-        var queue = sortedSetOf<String>()
-        queue.add(root)
-
-        while (queue.isNotEmpty()) {
-            println("visited $visited; queue $queue")
-            val node: String = queue.first()
-            queue.remove(node)
-
-            val adjacents = graph[node].orEmpty()
-            visited += node
-            currentAdjacents += adjacents
-            currentAdjacents = currentAdjacents.sorted()
-
-            fun allDepsVisited(node: String): Boolean {
-                return deps[node]!!.all { visited.contains(it) }
-            }
-
-            for (n in currentAdjacents) {
-                if (!visited.contains(n) && !queue.contains(n) && allDepsVisited(n)) {
-                    queue.add(n)
-                }
-            }
-        }
-        println(visited.joinToString(""))
-        // BGKDMJCNESTUZWY
-
-    }
-
 
     // CABDFE
 
