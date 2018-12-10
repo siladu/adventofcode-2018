@@ -4,18 +4,18 @@ object Day7 {
     //
     private fun run(input: List<String>) {
 
-        val depPairs: List<Pair<String, String>> = input.map {
+        val depPairs: List<Pair<Char, Char>> = input.map {
             val (dependency, step) = """Step (.) must be finished before step (.) can begin.""".toRegex().find(it)!!.destructured
-            (dependency to step)
+            (dependency.toCharArray()[0] to step.toCharArray()[0])
         }
 
         println(depPairs)
 
-        val stepToNextSteps: Map<String, List<String>> = depPairs.groupBy({ it.first }, { it.second })
-        var dependencies: MutableMap<String, List<String>> = depPairs.groupBy({ it.second }, { it.first }).toMutableMap()
+        val stepToNextSteps: Map<Char, List<Char>> = depPairs.groupBy({ it.first }, { it.second })
+        var dependencies: MutableMap<Char, List<Char>> = depPairs.groupBy({ it.second }, { it.first }).toMutableMap()
         println("deps  $dependencies")
 
-        val graph: Map<String, List<String>> = stepToNextSteps.mapValues { it.value.sorted() }
+        val graph: Map<Char, List<Char>> = stepToNextSteps.mapValues { it.value.sorted() }
         println("graph $graph")
 
         var hasDependents = true
@@ -24,13 +24,14 @@ object Day7 {
 //        println("graph.values.distinct ${graph.values.flatten().toSortedSet()}")
 //        println("graph.keys ${graph.keys.toSortedSet()}")
         println("minus ${graph.keys.toSortedSet().minus(graph.values.flatten().toSortedSet())}")
-        val startNode: String = graph.keys.toSortedSet().minus(graph.values.flatten().toSortedSet()).elementAt(0)
-        var node = "B"
-        var visited = emptyList<String>()
-        var currentEdges: List<String> = listOf("Q", "R")
-        dependencies["Q"] = emptyList()
-        dependencies["R"] = emptyList()
-        fun allDependenciesVisited(node: String): Boolean {
+        val startNode: Char = graph.keys.toSortedSet().minus(graph.values.flatten().toSortedSet()).elementAt(0)
+        var node = startNode
+        var visited = emptyList<Char>()
+        var currentEdges: List<Char> = graph.keys.toSortedSet().minus(graph.values.flatten().toSortedSet()).drop(1)
+        currentEdges.forEach {
+            dependencies[it] = emptyList()
+        }
+        fun allDependenciesVisited(node: Char): Boolean {
             val res = dependencies[node]!!.all { visited.contains(it) }
 //            println("Are all of node $node's dependencies [${dependencies[node]}] visited [$visited] = $res")
             return res
@@ -39,7 +40,7 @@ object Day7 {
         while (hasDependents) {
             visited += node
             dependencies = dependencies.mapValues { entry -> entry.value.filterNot { node == it } }.toMutableMap()
-            val edges = graph.getOrDefault(node, emptySet<String>())
+            val edges = graph.getOrDefault(node, emptySet<Char>())
             if (edges.isEmpty()) {
                 hasDependents = false
             } else {
