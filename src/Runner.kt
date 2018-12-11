@@ -5,9 +5,14 @@ object Runner {
     fun timedRun(day: Int, run: (List<String>) -> Unit) {
         val start = System.nanoTime()
         val inputFile = "resources/day$day-input.txt"
-        val input = File(inputFile).readLines()
 
-        run(input)
+        try {
+            val input = File(inputFile).readLines()
+            run(input)
+        } catch(e: Exception) {
+            println(e)
+            run(emptyList())
+        }
 
         val timeInNanos = System.nanoTime() - start
         println("Time in nanos: $timeInNanos")
