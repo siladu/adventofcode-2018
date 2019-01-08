@@ -28,6 +28,8 @@ object Day11 {
     }
 
     private fun maxForWindow(windowSize: Int, grid: Array<IntArray> ): Map.Entry<Point, Int> {
+        // Why is this function inefficient for large windowSize?
+
         var map = mutableMapOf<Point, Int>()
 
         for (y in (1..(gridSize - windowSize))) {
